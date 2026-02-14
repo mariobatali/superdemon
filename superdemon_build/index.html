@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SUPERDEMON</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Custom Styles for Kinetic Evolution */
+        .heat-container {
+            width: 100%;
+            height: 10px;
+            background: #222;
+            border: 1px solid #444;
+            margin-top: 5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #heat-gauge-fill {
+            width: 0%;
+            height: 100%;
+            background: #0ff;
+            transition: width 0.2s, background-color 0.2s;
+            box-shadow: 0 0 10px currentColor;
+        }
+
+        #heat-tier-text {
+            font-size: 14px;
+            font-weight: 900;
+            color: #0ff;
+            text-align: right;
+            margin-top: 2px;
+            text-shadow: 0 0 5px currentColor;
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="gameCanvas"></canvas>
+
+    <div id="ui-layer">
+        <div class="hud-left">
+            <div class="hud-text"><span id="score-disp">0</span></div>
+            <div id="combo-disp" class="hud-text"><span id="combo-val">0</span></div>
+        </div>
+
+        <div class="hud-right">
+            <!-- HUD RIGHT CLEARED FOR PLAYER RING UI -->
+        </div>
+    </div>
+
+    <div id="boss-warning">WARDEN<br>DETECTED</div>
+
+    <div id="screens">
+        <div id="start-screen" class="screen active">
+            <h1 class="gothic-title">SUPERDEMON</h1>
+
+            <!-- Ritual Start Button -->
+            <div class="ritual-container" onclick="Game.startWithTransition()">
+                <div class="ritual-triangle"></div>
+                <div class="ritual-rune r-15">XV</div>
+                <div class="ritual-rune r-30">XXX</div>
+                <div class="ritual-rune r-50">L</div>
+            </div>
+        </div>
+
+        <div id="upgrade-screen" class="screen">
+            <!-- Unused in this mode but kept for safety -->
+            <h1 style="font-size: 48px; color: #ff0;">SYSTEM EVOLVED</h1>
+            <p>SELECT KERNEL PATCH:</p>
+            <div class="card-container" id="upgrade-cards"></div>
+        </div>
+
+        <div id="game-over-screen">
+            <h1 style="color:#f00;">FATAL ERROR</h1>
+            <p>PROCESS TERMINATED.</p>
+            <p style="font-size: 24px; font-weight:900; color:#fff;">SCORE: <span id="final-score">0</span></p>
+            <p class="death-detail" id="death-reason">KILLED BY: UNKNOWN</p>
+            <p class="attempt-detail">ATTEMPT #<span id="attempt-num">0</span></p>
+            <div style="display:flex; gap:10px; margin-top:30px;">
+                <!-- Reboot (Refresh Icon) -->
+                <button class="icon-btn" onclick="Game.start()">&#8635;</button>
+
+                <!-- Hide (Eye Icon) -->
+                <button class="icon-btn" onclick="
+                    const s = document.getElementById('game-over-screen');
+                    const hidden = s.classList.contains('visually-hidden');
+                    if(hidden) {
+                        s.classList.remove('visually-hidden');
+                        this.innerHTML = '&#128065;'; // Eye
+                    } else {
+                        s.classList.add('visually-hidden');
+                        this.innerHTML = '&#128065;'; // Eye (Stays same? Or Crossed out?)
+                        // Let's keep Eye, maybe dim it? Or just keep it.
+                        // Actually, user context implies 'Show' when hidden.
+                        // Eye symbol is universal for Visibility.
+                    }
+                ">&#128065;</button>
+            </div>
+        </div>
+
+        <div id="victory-screen">
+            <h1 style="color:#0f0;">ASCENDED</h1>
+            <p style="color: #fff;">SINGULARITY ACHIEVED.</p>
+            <p style="font-size: 24px; font-weight:900;">SCORE: <span id="victory-score">333333</span></p>
+            <div style="margin-top:30px;">
+                <button class="icon-btn" onclick="Game.start()">&#8635;</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AGI</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <canvas id="gameCanvas"></canvas>
+
+    <div id="ui-layer">
+        <div class="hud-left">
+            <div class="hud-text">SCORE: <span id="score-disp">0</span></div>
+            <div class="hud-text">RAM: <span id="ram-disp" style="color:#0ff">READY</span></div>
+            <div id="combo-disp" class="hud-text">COMBO x<span id="combo-val">0</span></div>
+        </div>
+
+        <div class="hud-right">
+            <div style="display:flex; justify-content:space-between; width:300px; font-size:12px; font-weight:900;">
+                <span style="color:#fff;">EVOLUTION</span>
+                <span style="color:#888;">V.<span id="lvl-disp">1.0</span></span>
+            </div>
+            <div class="xp-container">
+                <div id="xp-bar"></div>
+            </div>
+            <div id="perk-bar"></div>
+        </div>
+    </div>
+
+    <div id="boss-warning">WARDEN<br>DETECTED</div>
+
+    <div id="screens">
+        <div id="start-screen" class="screen active">
+            <h1>AGI</h1>
+            <p>
+                <span class="highlight">HOLD CLICK</span> to Time-Dilate & Aim.<br>
+                <span class="highlight">RELEASE</span> to DASH.<br>
+                <span class="danger">KILLING REFUNDS DASH.</span>
+            </p>
+            <p class="tip">
+                OBJECTIVE:<br>
+                Breach the firewall. Evolve your kernel.<br>
+                Ascend to Singularity.
+            </p>
+            <div class="sub-tip">
+                THREAT DATABASE:<br>
+                <span style="color:#f00">RED</span>: Contact Damage. Avoid.<br>
+                <span style="color:#fa0">ORANGE</span>: Ranged Unit. Shoots Projectiles.<br>
+                <span style="color:#0ff">CYAN</span>: Glitch Unit. Teleports.<br>
+                <span style="color:#a0f">PURPLE</span>: Gravity Well. Alters Trajectory.
+            </div>
+            <div class="sub-tip" style="border-top: 1px solid #444; margin-top: 10px; padding-top:5px; color:#0f0;">
+                PROTOCOL OMEGA:<br>
+                Defeat the Warden.<br>
+                Trace the Star Path (1-5) to complete the Ritual.
+            </div>
+            <button onclick="Game.start()">INITIATE</button>
+        </div>
+
+        <div id="upgrade-screen" class="screen">
+            <h1 style="font-size: 48px; color: #ff0;">SYSTEM EVOLVED</h1>
+            <p>SELECT KERNEL PATCH:</p>
+            <div class="card-container" id="upgrade-cards"></div>
+        </div>
+
+        <div id="game-over-screen">
+            <h1 style="color:#f00;">FATAL ERROR</h1>
+            <p>PROCESS TERMINATED.</p>
+            <p style="font-size: 24px; font-weight:900; color:#fff;">SCORE: <span id="final-score">0</span></p>
+            <p class="death-detail" id="death-reason">KILLED BY: UNKNOWN</p>
+            <p class="attempt-detail">ATTEMPT #<span id="attempt-num">0</span></p>
+            <button onclick="Game.start()">REBOOT</button>
+        </div>
+
+        <div id="victory-screen">
+            <h1 style="color:#0f0;">ASCENDED</h1>
+            <p style="color: #fff;">SINGULARITY ACHIEVED.</p>
+            <p style="font-size: 24px; font-weight:900;">SCORE: <span id="victory-score">333333</span></p>
+            <button onclick="Game.start()">RESTART</button>
+        </div>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+
+</html>
