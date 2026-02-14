@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SUPERDEMON</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Custom Styles for Kinetic Evolution */
+        .heat-container {
+            width: 100%;
+            height: 10px;
+            background: #222;
+            border: 1px solid #444;
+            margin-top: 5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #heat-gauge-fill {
+            width: 0%;
+            height: 100%;
+            background: #0ff;
+            transition: width 0.2s, background-color 0.2s;
+            box-shadow: 0 0 10px currentColor;
+        }
+
+        #heat-tier-text {
+            font-size: 14px;
+            font-weight: 900;
+            color: #0ff;
+            text-align: right;
+            margin-top: 2px;
+            text-shadow: 0 0 5px currentColor;
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="gameCanvas"></canvas>
+
+    <div id="ui-layer">
+        <div class="hud-left">
+            <div class="hud-text">SCORE: <span id="score-disp">0</span></div>
+            <div class="hud-text">RAM: <span id="ram-disp" style="color:#0ff">READY</span></div>
+            <div id="combo-disp" class="hud-text"><span id="combo-val">0</span></div>
+        </div>
+
+        <div class="hud-right">
+            <div style="display:flex; justify-content:space-between; width:300px; font-size:12px; font-weight:900;">
+                <span style="color:#fff;">KINETIC EVOLUTION</span>
+                <span style="color:#888;">V.<span id="lvl-disp">AUTO</span></span>
+            </div>
+
+            <!-- REPLACED XP BAR WITH HEAT GAUGE -->
+            <div class="heat-container">
+                <div id="heat-gauge-fill"></div>
+            </div>
+            <div id="heat-tier-text">TIER 0</div>
+
+            <div id="perk-bar"></div>
+        </div>
+    </div>
+
+    <div id="boss-warning">WARDEN<br>DETECTED</div>
+
+    <div id="screens">
+        <div id="start-screen" class="screen active">
+            <h1>SUPERDEMON</h1>
+            <p>
+                <span class="highlight">HOLD CLICK</span> to Time-Dilate & Aim.<br>
+                <span class="highlight">RELEASE</span> to DASH.<br>
+                <span class="danger">KILLING REFUNDS DASH.</span>
+            </p>
+            <p class="tip">
+                KINETIC PROTOCOL:<br>
+                Power is tied to COMBO.<br>
+                Maintain momentum to unlock tiers.
+            </p>
+            <div class="sub-tip">
+                TIER 1 (10+): ECHO SLASH (Breaks Shields)<br>
+                TIER 2 (25+): MINE MASTERY (Absorb Mines)<br>
+                TIER 3 (50+): NUCLEAR RANGE (Massive Reach)
+            </div>
+            <button onclick="Game.start()">INITIATE</button>
+        </div>
+
+        <div id="upgrade-screen" class="screen">
+            <!-- Unused in this mode but kept for safety -->
+            <h1 style="font-size: 48px; color: #ff0;">SYSTEM EVOLVED</h1>
+            <p>SELECT KERNEL PATCH:</p>
+            <div class="card-container" id="upgrade-cards"></div>
+        </div>
+
+        <div id="game-over-screen">
+            <h1 style="color:#f00;">FATAL ERROR</h1>
+            <p>PROCESS TERMINATED.</p>
+            <p style="font-size: 24px; font-weight:900; color:#fff;">SCORE: <span id="final-score">0</span></p>
+            <p class="death-detail" id="death-reason">KILLED BY: UNKNOWN</p>
+            <p class="attempt-detail">ATTEMPT #<span id="attempt-num">0</span></p>
+            <button onclick="Game.start()">REBOOT</button>
+        </div>
+
+        <div id="victory-screen">
+            <h1 style="color:#0f0;">ASCENDED</h1>
+            <p style="color: #fff;">SINGULARITY ACHIEVED.</p>
+            <p style="font-size: 24px; font-weight:900;">SCORE: <span id="victory-score">333333</span></p>
+            <button onclick="Game.start()">RESTART</button>
+        </div>
+    </div>
+
+    <script type="module" src="js/main_auto.js"></script>
+</body>
+
+</html>

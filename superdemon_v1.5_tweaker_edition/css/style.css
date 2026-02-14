@@ -1,0 +1,358 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    background-color: #020202;
+    font-family: 'Courier New', Courier, monospace;
+    color: #fff;
+    user-select: none;
+    cursor: crosshair;
+}
+
+#gameCanvas {
+    display: block;
+}
+
+#ui-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 15px 30px;
+    box-sizing: border-box;
+    pointer-events: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    mix-blend-mode: normal;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0) 100%);
+    z-index: 10;
+}
+
+.hud-left {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.hud-right {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: flex-end;
+}
+
+.hud-text {
+    font-size: 20px;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+#combo-disp {
+    font-size: 32px;
+    font-style: italic;
+    display: none;
+    animation: shake 0.1s infinite;
+    background: linear-gradient(to bottom, #fff, #f0f);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+@keyframes shake {
+    0% {
+        transform: translate(1px, 1px) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(-1px, -2px) rotate(-1deg);
+    }
+}
+
+.xp-container {
+    width: 300px;
+    height: 10px;
+    background: #222;
+    border: 1px solid #555;
+    box-shadow: inset 0 0 5px #000;
+    position: relative;
+}
+
+#xp-bar {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #0ff, #f0f);
+    box-shadow: 0 0 20px #f0f;
+    transition: width 0.2s;
+}
+
+#perk-bar {
+    display: flex;
+    gap: 5px;
+    margin-top: 5px;
+    justify-content: flex-end;
+}
+
+.perk-icon {
+    width: 25px;
+    height: 25px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid #555;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    position: relative;
+}
+
+.perk-lvl {
+    position: absolute;
+    bottom: -2px;
+    right: -2px;
+    font-size: 8px;
+    background: #000;
+    color: #0ff;
+    padding: 0 2px;
+    font-weight: bold;
+    border: 1px solid #333;
+}
+
+#boss-warning {
+    position: absolute;
+    top: 150px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #f00;
+    font-size: 80px;
+    font-weight: 900;
+    letter-spacing: 10px;
+    text-shadow: 0 0 20px #f00;
+    display: none;
+    animation: strobe 0.5s infinite;
+    pointer-events: none;
+    z-index: 100;
+    width: 100%;
+    text-align: center;
+}
+
+@keyframes strobe {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+#screens {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.screen {
+    background: rgba(10, 10, 10, 0.95);
+    padding: 40px;
+    border: 1px solid #444;
+    text-align: center;
+    pointer-events: auto;
+    backdrop-filter: blur(10px);
+    display: none;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 700px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+}
+
+#game-over-screen,
+#victory-screen {
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 20px 40px;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(4px);
+    max-width: 500px;
+    gap: 10px;
+    border-radius: 4px;
+    pointer-events: auto;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#game-over-screen.active,
+#victory-screen.active {
+    display: flex;
+}
+
+#game-over-screen h1,
+#victory-screen h1 {
+    font-size: 32px;
+    text-shadow: 0 0 15px currentColor;
+    margin: 0 0 10px 0;
+    letter-spacing: 2px;
+}
+
+#game-over-screen p,
+#victory-screen p {
+    font-size: 16px;
+    margin: 5px 0;
+    color: #ccc;
+    font-weight: bold;
+}
+
+.death-detail {
+    color: #f0f !important;
+    font-size: 14px !important;
+    margin-top: 5px !important;
+    text-transform: uppercase;
+}
+
+.attempt-detail {
+    color: #888 !important;
+    font-size: 12px !important;
+    margin-bottom: 10px !important;
+}
+
+.screen.active {
+    display: flex;
+}
+
+h1 {
+    color: #fff;
+    font-size: 64px;
+    margin: 0;
+    text-transform: uppercase;
+    font-style: italic;
+    text-shadow: 0 0 20px #fff;
+    letter-spacing: -2px;
+}
+
+.highlight {
+    color: #0ff;
+    font-weight: 900;
+}
+
+.danger {
+    color: #f0f;
+    font-weight: 900;
+}
+
+.tip {
+    color: #ff0;
+    font-weight: 900;
+}
+
+.sub-tip {
+    font-size: 14px;
+    color: #888;
+    margin-top: 10px;
+    line-height: 1.4;
+}
+
+.card-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.upgrade-card {
+    background: linear-gradient(180deg, #222, #111);
+    border: 1px solid #444;
+    padding: 15px;
+    width: 180px;
+    cursor: pointer;
+    transition: 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.upgrade-card:hover {
+    transform: translateY(-5px);
+    background: linear-gradient(180deg, #333, #222);
+    border-color: #fff;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+.card-icon {
+    font-size: 48px;
+    margin-bottom: 5px;
+}
+
+.card-title {
+    font-weight: 900;
+    color: #fff;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+.card-lvl {
+    font-size: 12px;
+    background: #444;
+    color: #fff;
+    padding: 2px 6px;
+    font-weight: bold;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.card-desc {
+    font-size: 12px;
+    color: #aaa;
+    line-height: 1.2;
+    text-align: center;
+    font-weight: bold;
+}
+
+.card-stat {
+    font-size: 12px;
+    color: #0f0;
+    margin-top: 5px;
+    font-weight: 900;
+}
+
+button {
+    background: #fff;
+    border: none;
+    color: #000;
+    padding: 15px 40px;
+    font-size: 24px;
+    font-family: inherit;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: 900;
+    font-style: italic;
+    transition: 0.2s;
+    clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+    margin-top: 20px;
+}
+
+button:hover {
+    background: #0ff;
+    color: #000;
+    box-shadow: 0 0 30px #0ff;
+    transform: scale(1.05);
+}
